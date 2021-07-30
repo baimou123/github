@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <style>
+        #div1 {
+            height: 800px;
+            width: 800px;
+            border: 3px dashed rebeccapurple;
+            margin: 0 auto;
+            background-color: rgb(108, 216, 219);
+        }
+
+        #myinput {
+            width: 600px;
+            height: 40px;
+            margin-left: 70px;
+        }
+
+        #nadd {
+            background-color:rgb(93, 95, 95);
+            height: 40px;
+            width: 60px;
+            border: 1px white solid;
+        }
+
+        td {
+            width: 800px;
+            height: 10px;
+            border: none;
+            text-align: center;
+        }
+
+       #dcolor{
+        background-color: rgb(93, 95, 95);
+        border: 1px white solid;
+       }
+    </style>
+</head>
+
+<body>
+    <div id="div1">
+        <h3 align="center">任务列表</h3>
+        <span>
+            <input type="text" value="" id="myinput">
+            <input type="button" value="添加" onclick="addinput(this)" id="nadd">
+        </span>
+        <div id="div2">
+            <table id="cc">
+                <tr>
+                    <td>任务</td>
+                    <td>时间</td>
+                    <td>选择</td>
+                </tr>
+            </table>
+            <table id="down">
+                
+            </table>
+        </div>
+        
+    </div>
+    <script>
+        function addinput(dom) {
+            var addt = $('#myinput').val();
+            //获取当前时间
+            var date = new Date();
+
+            var day = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")[date.getDay()];
+            //年月日
+            var y=date.getFullYear();
+            var datetime = y + "年" + ((date.getMonth() + 1)) + "月" + date.getDate() + "日" + "  " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "  " + day;
+            // alert(datetime);
+            var downTrDom = $("<tr>"
+                + " <td>" + addt +"</td>"
+                + " <td>" + datetime + "</td>"
+                + " <td align='center'>"
+                + "  <input type='button' value='已完成'  onclick='done(this)' id='dcolor'}/>"
+                + "  <input type='button' value='删除' onclick='deleted(this)' id='dcolor'/>"
+                + " </td>" 
+                + "</tr>"
+            );
+            $("#down").append(downTrDom);
+        }
+
+         //去掉中划线
+       function done(dom){
+        //$("#down tr td").css({"text-decoration": "line-through", "color": "red" }); 
+        var a=$(dom).parent().parent();
+      a.children().eq(0).css({"text-decoration": "line-through", "color": "red" });
+      a.children().eq(1).css({"text-decoration": "line-through", "color": "red" });
+
+
+    
+    }
+
+        //删除
+       function deleted(dom){
+           $(dom).parent().parent().remove();
+
+     }
+
+    </script>
+</body>
+
+</html>
