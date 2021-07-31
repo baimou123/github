@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>增减购物车商品信息 </title>
+<script type="text/javascript" src="./js/jquery-1.8.3.min.js" ></script>
+<style type="text/css" >
+*{
+	font-size:12px;
+}
+
+</style>
+ 
+</head>
+<body> 
+    <script>
+        
+        //选择
+        function quan() {
+            var isTrue = $("table tr:eq(0) th>input").prop("checked")
+            if (isTrue) {
+                $.each($(":checkbox"), function (index, value) {
+                    $(this).prop("checked", true)
+                })
+            } else {
+                $.each($(":checkbox"), function (index, value) {
+                    $(this).prop("checked", false)
+                })
+            }
+ 
+        }
+        //批量删除
+        function delchecked() {
+            $.each($("table tr:gt(0) :checkbox"), function (index, value) {
+                var isTrue = $(this).prop("checked")
+                if (isTrue) {
+                    $(this).parent().parent().remove()
+                    $("table tr:eq(0) :checkbox").prop('checked', false)
+                }
+            })
+ 
+        }
+	//添加
+        function add() {
+	
+         }
+
+        //删除一行
+        $(function () {
+            $(".del").click(function () {
+                $(this).parent().parent().remove()
+            })
+        })
+    // -按钮
+        function delNumber(btn) {
+            var number = $(btn).next().val()
+            Number.parseInt(number)
+            if (number >= 1) {
+                $(btn).next().val(--number)
+            }
+            //判断所在行的下标
+            var tr = $(btn).parent().parent().index()
+            console.log(tr)
+            var price2 = 32.9
+            var price3 = 3339
+            if (tr == 1) {
+                var newprice = price2 * number
+                $(btn).parent().siblings().eq(2).text("￥" + newprice + "元")
+            } else {
+                var newprice = price3 * number
+                $(btn).parent().siblings().eq(2).text("￥" + newprice + "元")
+            }
+        }
+        //+按钮
+        function addNumber(btn) {
+            var number = $(btn).prev().val()
+            Number.parseInt(number)
+            $(btn).prev().val(++number)
+            //判断所在行的下标
+            var tr = $(btn).parent().parent().index()
+            console.log(tr)
+            var price2 = 32.9
+            var price3 = 3339
+            if (tr == 1) {
+                var newprice = price2 * number
+                $(btn).parent().siblings().eq(2).text("￥" + newprice + "元")
+            } else {
+                var newprice = price3 * number
+                $(btn).parent().siblings().eq(2).text("￥" + newprice + "元")
+            }
+        }
+ 
+    </script>
+ 
+    <table border="1" cellpadding="0" cellspacing="0">
+        <tr>
+            <th><input type='checkbox' onchange="quan()" />全选</th>
+            <th>商品信息</th>
+            <th>宜美惠价</th>
+            <th>数量</th>
+            <th>操作</th>
+ 
+        </tr>
+ 
+        <tr class="tr_0">
+            <td>
+                <input name="" type="checkbox" value="" />
+            </td>
+            <td>
+                <img src="images/sang.gif" class="products" /><a href="#">天堂雨伞</a>
+            </td>
+            <td>￥32.9元
+            </td>
+            <td>
+                <img src="images/subtraction.gif" width="20" height="20" onclick="delNumber(this)" />
+                <input type="text" class="quantity" value="1" />
+                <img src="images/add.gif" width="20" height="20" onclick="addNumber(this)" />
+            </td>
+            <td>
+                <a href="#" class="del">删除</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input name="" type="checkbox" value="" />
+            </td>
+            <td>
+                <img src="images/iphone.gif" class="products" /><a href="#">苹果手机iphone5</a>
+            </td>
+            <td>￥3339元
+            </td>
+            <td>
+                <img src="images/subtraction.gif" width="20" height="20" onclick="delNumber(this)" />
+                <input type="text" class="quantity" value="1" />
+                <img src="images/add.gif" width="20" height="20" onclick="addNumber(this)" />
+            </td>
+            <td>
+                <a href="#" class="del">删除</a>
+            </td>
+        </tr>
+ 
+    </table>
+ 
+    <a href="#">添加</a>
+    <a href="#" id="del" onclick="delchecked()">删除</a>
+</body>
+</html>
